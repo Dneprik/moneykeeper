@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+ <div class="container">
+     <div class="window">
+    <h1>Exchange money through api.currencyapi.com </h1>
+
+    <form method="post" action="{% url 'convert' %}">
+          {% csrf_token %}
+        <label for="input1">Enter amount:</label>
+        <input class="short-input" type="number" min="1" max="10000000" id="input1" name="input1" value="{{amount}}">
+        <label for="option1">Choose currency </label>
+        <select id="option1" name="option1">
+            {% for curr in list_of_currency %}
+                {% if curr == cur_old %}
+                    <option value="{{curr}}" selected>{{curr}}</option>
+                {% else %}
+                    <option value="{{curr}}">{{curr}}</option>
+                {% endif %}}
+            {% endfor %}
+        </select>
+        <label for="option1">and choose new currency </label>
+         <select id="option2" name="option2">
+            {% for curr in list_of_currency %}
+                {% if curr == cur_new %}
+                    <option value="{{curr}}" selected>{{curr}}</option>
+                {% else %}
+                    <option value="{{curr}}">{{curr}}</option>
+                {% endif %}
+            {% endfor %}
+        </select><br><br>
+        <button class="large-button" type="submit">Convert</button><br>
+        <br><br>
+
+        <label for="input2">You receive: </label>
+        <input class="short-input" type="text" id="input2" name="input2" value="{{res}}">
+
+
+
+    </form>
+     </div>
+    </div>
+</body>
+</html>
